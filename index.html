@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="light" />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<title>Peluquería María Magdalena · Peluquería y estética en La Florida, Quito</title>
+<meta name="description" content="Peluquería María Magdalena · Años de trayectoria en La Florida, Quito. Cabello, color, uñas y estética con buen trato, asesoramiento y productos de calidad. Reserva por WhatsApp." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --ink:#211a1c; --ink-soft:#6f6468;
+  --cream:#faf6f4; --cream-2:#f2eae7;
+  --gold:#8a2e43; --gold-d:#6d2335;
+  --champ:#c0984e; --champ-l:#e3c58c;
+  --espresso:#241318; --espresso-2:#190c10;
+  --line:#ece1dd;
+  --white:#fff; --wa:#25D366;
+  --shadow:0 20px 55px rgba(26,12,16,.18);
+  --shadow-soft:0 12px 30px rgba(26,12,16,.1);
+  --r:18px; --r-lg:26px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;color-scheme:light}
+body{font-family:'Poppins',system-ui,sans-serif;color:var(--ink);background:var(--white);overflow-x:hidden;line-height:1.65;font-weight:300}
+h1,h2,h3,.disp{font-family:'Playfair Display',serif;line-height:1.12;font-weight:600}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+.wrap{width:min(1180px,92%);margin:0 auto}
+.accent{color:var(--gold)}
+
+/* SPLASH */
+#splash{position:fixed;inset:0;z-index:9999;background:var(--espresso-2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;transition:opacity .6s,visibility .6s}
+#splash.hide{opacity:0;visibility:hidden}
+.sp-bar{width:190px;height:5px;border-radius:99px;background:rgba(255,255,255,.14);overflow:hidden}
+.sp-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--champ));animation:fill 1.6s ease forwards}
+@keyframes fill{to{width:100%}}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+
+/* LOGO */
+.logo{display:flex;align-items:center;gap:12px}
+.logo-emblem{flex:none;width:46px;height:46px;border-radius:12px;background:var(--gold);color:var(--champ-l);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;font-size:1.18rem;letter-spacing:-1px;border:1.5px solid rgba(224,197,140,.45)}
+.logo-text{display:flex;flex-direction:column;font-family:'Playfair Display',serif;font-weight:600;font-size:1.12rem;color:var(--ink);line-height:1.08;letter-spacing:.3px}
+.logo-text small{font-family:'Poppins';font-weight:400;font-size:.52rem;letter-spacing:2.5px;color:var(--champ);text-transform:uppercase;margin-top:3px}
+.on-dark .logo-text{color:#fff}
+.sp-logo{transform:scale(1.5);animation:beat 1.8s ease-in-out infinite}
+
+/* NAV */
+header{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);box-shadow:0 2px 20px rgba(42,24,30,.05);transition:box-shadow .3s}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+.nav-links{display:flex;align-items:center;gap:26px}
+.nav-links a{color:var(--ink);font-weight:400;font-size:.94rem;transition:color .2s}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{background:var(--ink);color:#fff !important;padding:10px 22px;border-radius:99px;font-weight:500;letter-spacing:.3px;transition:transform .2s,background .2s}
+.nav-cta:hover{transform:translateY(-2px);background:var(--gold)}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:0;padding:6px}
+.quicknav{display:none}
+.burger span{width:26px;height:2px;border-radius:9px;background:var(--ink)}
+
+/* DRAWER */
+.drawer{position:fixed;inset:0;z-index:950;pointer-events:none}
+.drawer-bg{position:absolute;inset:0;background:rgba(21,10,14,.55);opacity:0;transition:opacity .3s}
+.drawer-panel{position:absolute;top:0;right:0;height:100%;width:min(320px,82%);background:var(--espresso-2);box-shadow:var(--shadow);padding:80px 30px;display:flex;flex-direction:column;gap:2px;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.drawer.open{pointer-events:auto}
+.drawer.open .drawer-bg{opacity:1}
+.drawer.open .drawer-panel{transform:translateX(0)}
+.drawer-panel a{color:#fff;font-family:'Poppins';font-weight:400;font-size:1.05rem;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.drawer-panel a.d-cta{margin-top:18px;background:var(--gold);text-align:center;border-radius:99px;border:0;padding:14px;font-weight:500}
+.drawer-close{position:absolute;top:22px;right:24px;background:none;border:0;color:#fff;font-size:2rem;cursor:pointer;line-height:1}
+
+/* HERO */
+.hero{position:relative;min-height:90vh;display:flex;align-items:center;color:#fff;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:-2;background:var(--espresso-2)}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 35%}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(18,8,11,.92) 0%,rgba(25,12,16,.74) 42%,rgba(25,12,16,.3) 100%)}
+.hero-inner{padding:72px 0;max-width:680px}
+.hero .kicker{display:inline-block;background:rgba(138,46,67,.26);border:1px solid rgba(192,152,78,.5);color:var(--champ-l);font-weight:400;font-size:.82rem;letter-spacing:1px;padding:7px 18px;border-radius:99px;margin-bottom:22px}
+.hero h1{font-size:clamp(2.4rem,5.6vw,4rem);font-weight:600;margin-bottom:18px;letter-spacing:-.5px}
+.hero p.lead{font-size:clamp(1.02rem,2vw,1.2rem);font-weight:300;opacity:.94;max-width:560px;margin-bottom:32px}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:34px}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:14px 26px;border-radius:99px;font-family:'Poppins';font-weight:500;font-size:1rem;letter-spacing:.3px;cursor:pointer;border:0;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-3px)}
+.btn svg{width:20px;height:20px}
+.btn-gold{background:var(--gold);color:#fff;box-shadow:0 14px 30px rgba(138,46,67,.42)}
+.btn-wa{background:var(--wa);color:#fff;box-shadow:0 14px 30px rgba(37,211,102,.32)}
+.btn-ghost{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.4);backdrop-filter:blur(6px)}
+.hero-pills{display:flex;flex-wrap:wrap;gap:11px}
+.pill{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.2);padding:9px 16px;border-radius:99px;font-weight:400;font-size:.88rem}
+.pill b{color:var(--champ-l);font-weight:600}
+.pill .star{color:var(--champ)}
+
+/* SECTION */
+.sec{padding:88px 0}
+.eyebrow{font-family:'Poppins';font-weight:500;letter-spacing:3px;text-transform:uppercase;font-size:.74rem;color:var(--gold);margin-bottom:14px}
+.sec-title{font-size:clamp(1.9rem,4vw,2.8rem);font-weight:600;color:var(--ink);margin-bottom:14px}
+.sec-sub{color:var(--ink-soft);max-width:580px;font-size:1.04rem;font-weight:300}
+.center{text-align:center;margin-left:auto;margin-right:auto}
+
+/* TRUST STRIP */
+.trust{background:var(--cream);border-bottom:1px solid var(--line)}
+.trust .wrap{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:14px 36px;padding:20px 0}
+.trust-item{display:flex;align-items:center;gap:9px;font-weight:400;color:var(--ink);font-size:.92rem}
+.trust-item svg{width:19px;height:19px;color:var(--gold);flex:none}
+.trust-g{display:flex;align-items:center;gap:7px;text-decoration:none}
+.trust-g .stars{color:var(--champ);letter-spacing:1px}
+.trust-g b{color:var(--ink);font-weight:600}
+.trust-sep{width:1px;height:20px;background:var(--line)}
+
+/* PROMESA sin apuro */
+.promesa{background:var(--espresso-2);color:#fff}
+.promesa .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px 26px;padding:18px 0;text-align:center}
+.promesa-t{font-family:'Playfair Display';font-weight:600;font-size:1.05rem;color:var(--champ-l)}
+.promesa-items{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 22px}
+.promesa-items span{display:flex;align-items:center;gap:7px;font-weight:300;font-size:.92rem}
+.promesa-items span::before{content:"✓";color:var(--champ);font-weight:700}
+
+/* CTA de reseña */
+.rev-cta{display:inline-flex;align-items:center;gap:8px;margin:18px auto 0;background:#fff;border:1.5px solid var(--line);color:var(--ink);font-weight:500;font-size:.92rem;padding:11px 22px;border-radius:99px;transition:border .2s,transform .2s}
+.rev-cta:hover{border-color:var(--gold);transform:translateY(-2px)}
+
+/* SERVICIOS */
+.servicios{background:var(--cream)}
+.svc-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;margin-top:48px}
+.svc{position:relative;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-soft);background:#fff;transition:transform .3s,box-shadow .3s;flex:1 1 300px;max-width:340px}
+.svc:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.svc-img{position:relative;aspect-ratio:3/4;overflow:hidden}
+.svc-img img{width:100%;height:100%;object-fit:cover;transition:transform .7s}
+.svc:hover .svc-img img{transform:scale(1.08)}
+.svc-img::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(18,8,11,.84) 0%,rgba(18,8,11,.15) 45%,transparent 70%)}
+.svc-cap{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:20px;color:#fff}
+.svc-cap h3{font-size:1.2rem;color:#fff;margin-bottom:4px}
+.svc-cap p{font-size:.84rem;font-weight:300;opacity:.9;margin-bottom:8px}
+.svc-price{display:inline-block;background:rgba(138,46,67,.95);color:#fff;font-weight:500;font-size:.82rem;padding:3px 13px;border-radius:99px}
+.svc-book{display:inline-block;margin-left:8px;color:#fff;font-weight:600;font-size:.82rem;text-decoration:underline;text-underline-offset:3px}
+.svc-more{text-align:center;margin-top:26px;color:var(--ink-soft);font-size:.96rem}
+
+/* TENDENCIAS */
+.tendencias{background:var(--white)}
+.tabs{display:flex;justify-content:center;gap:10px;margin-top:34px;flex-wrap:wrap}
+.tab-btn{padding:11px 28px;border-radius:99px;border:1.5px solid var(--line);background:#fff;font-family:'Poppins';font-weight:500;font-size:.95rem;color:var(--ink);cursor:pointer;transition:all .2s}
+.tab-btn:hover{border-color:var(--gold)}
+.tab-btn.active{background:var(--gold);border-color:var(--gold);color:#fff}
+.trend-pane{display:none;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:34px}
+.trend-pane.active{display:flex}
+.trend{flex:1 1 240px;max-width:300px;background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:transform .3s,box-shadow .3s}
+.trend:hover{transform:translateY(-6px);box-shadow:var(--shadow-soft);border-color:var(--gold)}
+.trend-img{position:relative;aspect-ratio:4/3;overflow:hidden;cursor:zoom-in}
+.trend-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.trend:hover .trend-img img{transform:scale(1.06)}
+.trend-img .tnum{position:absolute;top:10px;left:12px;font-family:'Playfair Display';font-weight:700;font-size:1.25rem;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.6)}
+.trend-body{padding:18px}
+.trend-body h3{font-size:1.14rem;color:var(--ink);margin:0 0 5px;font-weight:600}
+.trend-body p{font-size:.88rem;color:var(--ink-soft);font-weight:300}
+.trend-body .ttag{display:inline-block;margin-top:11px;background:rgba(138,46,67,.1);color:var(--gold-d);font-size:.72rem;font-weight:500;padding:3px 12px;border-radius:99px}
+
+/* NOSOTROS */
+.nosotros{background:var(--cream)}
+.nos-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:54px;align-items:center}
+.nos-img{border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);aspect-ratio:4/5;position:relative}
+.nos-img img{width:100%;height:100%;object-fit:cover}
+.nos-badge{position:absolute;left:18px;bottom:18px;background:#fff;border-radius:16px;padding:14px 18px;box-shadow:var(--shadow-soft);display:flex;align-items:center;gap:12px}
+.nos-badge .n{font-family:'Playfair Display';font-weight:700;font-size:1.5rem;color:var(--gold);line-height:1}
+.nos-badge small{color:var(--ink-soft);font-size:.76rem}
+.nos-point{display:flex;gap:16px;margin-bottom:22px}
+.nos-ico{flex:none;width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--gold),var(--gold-d));display:flex;align-items:center;justify-content:center;color:#fff}
+.nos-point h3{font-size:1.14rem;color:var(--ink);margin-bottom:3px;font-weight:600}
+.nos-point p{color:var(--ink-soft);font-size:.96rem;font-weight:300}
+
+/* EQUIPO */
+.equipo{background:var(--white)}
+.team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:48px;max-width:620px;margin-left:auto;margin-right:auto}
+.team{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-soft);transition:transform .3s,box-shadow .3s}
+.team:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.team-img{aspect-ratio:1/1;overflow:hidden;background:var(--cream-2)}
+.team-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.team:hover .team-img img{transform:scale(1.06)}
+.team-body{padding:20px;text-align:center}
+.team-body h3{font-size:1.14rem;color:var(--ink);margin-bottom:3px;font-weight:600}
+.team-role{color:var(--gold);font-weight:500;font-size:.88rem}
+.team-tag{display:inline-block;margin-top:10px;background:var(--cream);border:1px solid var(--line);color:var(--ink-soft);font-size:.74rem;padding:3px 12px;border-radius:99px}
+.team-note{text-align:center;margin-top:22px;font-size:.8rem;color:#b2a7a2;font-weight:300}
+
+/* STATS BAND */
+.stats{background:var(--espresso-2);color:#fff;padding:52px 0}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
+.stat .num{font-family:'Playfair Display';font-weight:600;font-size:clamp(1.5rem,3.2vw,2rem);color:var(--champ-l);line-height:1.1}
+.stat .lbl{opacity:.82;font-size:.9rem;font-weight:300;margin-top:7px}
+
+/* RESEÑAS */
+.reviews{background:var(--cream);overflow:hidden}
+.rev-badge{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:99px;padding:8px 18px;margin-top:16px;font-weight:400}
+.rev-badge .big{font-family:'Playfair Display';font-weight:700;color:var(--ink);font-size:1.15rem}
+.rev-badge .stars{color:var(--champ)}
+.marquee{position:relative;margin-top:40px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.marquee::-webkit-scrollbar{display:none}
+.marquee-track{display:flex;gap:20px;width:max-content}
+.rev{width:350px;flex:none;background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow-soft);padding:22px;display:flex;flex-direction:column;gap:11px}
+.rev-top{display:flex;align-items:center;gap:12px}
+.rev-av{width:44px;height:44px;border-radius:50%;object-fit:cover;flex:none}
+.rev-av.letter{display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Playfair Display';font-weight:700}
+.rev-name{font-family:'Poppins';font-weight:500;font-size:.96rem;color:var(--ink)}
+.rev-date{font-size:.78rem;color:#a99e98}
+.rev .stars{color:var(--champ);letter-spacing:2px}
+.rev-text{color:var(--ink-soft);font-size:.92rem;font-weight:300;flex:1}
+.rev-foot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:10px}
+.gverif{display:flex;align-items:center;gap:6px;font-size:.76rem;color:#8a807b}
+.gcheck{color:var(--wa);font-weight:700}
+.glogo{font-family:'Poppins';font-weight:600;font-size:.9rem}
+.glogo .b{color:#4285F4}.glogo .r{color:#EA4335}.glogo .y{color:#FBBC05}.glogo .g{color:#34A853}
+.demo-tag{text-align:center;margin-top:20px;font-size:.8rem;color:#a99e98;font-weight:300}
+
+/* UBICACION */
+.ubica{background:var(--white)}
+.ubica-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:34px;margin-top:44px;align-items:stretch}
+.ubica-map{border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-soft);min-height:340px}
+.ubica-map iframe{width:100%;height:100%;min-height:340px;border:0}
+.ubica-card{background:var(--cream);border:1px solid var(--line);border-radius:var(--r);padding:32px;display:flex;flex-direction:column;justify-content:center}
+.ubica-row{display:flex;gap:12px;align-items:flex-start;color:var(--ink-soft);margin-bottom:16px;font-size:.98rem;font-weight:300}
+.ubica-row svg{flex:none;color:var(--gold);margin-top:3px;width:19px;height:19px}
+.ubica-row b{color:var(--ink);font-weight:500;display:block}
+.ubica-btns{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+
+/* RESERVAR */
+.reservar{position:relative;color:#fff;overflow:hidden;background:linear-gradient(135deg,var(--espresso-2),var(--espresso))}
+.reservar::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 12%,rgba(138,46,67,.34),transparent 46%)}
+.ag-grid{position:relative;display:grid;grid-template-columns:.92fr 1.08fr;gap:50px;align-items:center}
+.ag-intro h2{font-size:clamp(1.9rem,4.2vw,2.8rem);font-weight:600;margin-bottom:14px;color:#fff}
+.ag-intro p{opacity:.9;font-size:1.04rem;font-weight:300;margin-bottom:24px}
+.ag-list{list-style:none;display:flex;flex-direction:column;gap:13px}
+.ag-list li{display:flex;gap:11px;align-items:center;font-weight:400}
+.ag-list .tick{width:26px;height:26px;flex:none;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.8rem}
+form.card{background:#fff;border-radius:var(--r-lg);padding:32px;box-shadow:var(--shadow);color:var(--ink)}
+.field{margin-bottom:14px}
+.field label{display:block;font-weight:500;font-size:.84rem;color:var(--ink);margin-bottom:6px}
+.field input,.field select{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;font-family:inherit;font-size:.95rem;font-weight:300;background:var(--cream);transition:border .2s}
+.field input:focus,.field select:focus{outline:0;border-color:var(--gold)}
+.submit{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:var(--wa);color:#fff;border:0;padding:15px;border-radius:12px;font-family:'Poppins';font-weight:500;font-size:1.02rem;cursor:pointer;transition:transform .2s;box-shadow:0 12px 26px rgba(37,211,102,.4);margin-top:4px}
+.submit:hover{transform:translateY(-2px)}
+.submit svg{width:22px;height:22px;fill:#fff}
+.form-ok{display:none;text-align:center;padding:40px 20px}
+.form-ok.show{display:block}
+.form-ok .big{width:70px;height:70px;margin:0 auto 16px;border-radius:50%;background:var(--wa);display:flex;align-items:center;justify-content:center;color:#fff;font-size:2rem}
+.form-ok h3{color:var(--ink);font-size:1.4rem;margin-bottom:8px;font-weight:600}
+.form-ok p{color:var(--ink-soft);font-weight:300}
+.demo-note{font-size:.76rem;color:#b2a7a2;text-align:center;margin-top:12px;font-weight:300}
+
+/* PROMO BAR (top) */
+.promobar{background:linear-gradient(90deg,var(--gold-d),var(--gold));color:#fff;font-size:.9rem;position:relative;z-index:905}
+.promobar .wrap{display:flex;align-items:center;justify-content:center;gap:12px;padding:9px 0;flex-wrap:wrap;text-align:center}
+.promobar b{font-weight:600}
+.promobar .spark{animation:beat 1.1s ease-in-out infinite}
+.pb-cta{text-decoration:underline;font-weight:600;white-space:nowrap}
+
+/* PROMO BOX (reservar) */
+.promo-box{display:flex;gap:14px;align-items:center;background:rgba(138,46,67,.2);border:1px solid rgba(192,152,78,.5);border-radius:16px;padding:16px 18px;margin-bottom:24px}
+.promo-badge{flex:none;width:58px;height:58px;border-radius:14px;background:var(--gold);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display';font-weight:700;font-size:1.05rem;line-height:1;text-align:center}
+.promo-box b{color:#fff;font-weight:600}
+.promo-box p{opacity:.9;font-size:.9rem;font-weight:300;margin-top:3px}
+.promo-box .warn{color:var(--champ-l);font-weight:500}
+
+/* TIME SLOTS */
+.slots{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:4px}
+.slot{padding:9px 4px;border:1.5px solid var(--line);border-radius:10px;background:#fff;font-family:inherit;font-size:.86rem;font-weight:400;color:var(--ink);cursor:pointer;text-align:center;transition:all .15s}
+.slot:hover{border-color:var(--gold);background:var(--cream)}
+.slot.sel{background:var(--gold);border-color:var(--gold);color:#fff;font-weight:500}
+.slot.taken{background:var(--espresso-2);border-color:var(--espresso-2);color:rgba(255,255,255,.4);cursor:not-allowed;text-decoration:line-through}
+.slot.taken:hover{background:var(--espresso-2)}
+.slots-msg{grid-column:1/-1;color:var(--ink-soft);font-size:.9rem;font-weight:300;padding:8px 2px}
+.slots-legend{display:flex;gap:16px;margin-top:10px;font-size:.76rem;color:var(--ink-soft);font-weight:300}
+.slots-legend span{display:flex;align-items:center;gap:6px}
+.dot{width:11px;height:11px;border-radius:3px;display:inline-block}
+.dot.free{background:#fff;border:1.5px solid var(--line)}
+.dot.busy{background:var(--espresso-2)}
+
+/* FOOTER */
+footer{background:var(--espresso-2);color:#fff;padding:60px 0 28px}
+.foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:38px;margin-bottom:40px}
+.foot-grid p{opacity:.78;font-size:.93rem;font-weight:300;margin-top:14px;max-width:320px}
+.foot-col h4{font-family:'Poppins';font-weight:600;color:var(--champ-l);margin-bottom:15px;font-size:.98rem}
+.foot-col a,.foot-col div{display:block;opacity:.84;margin-bottom:9px;font-size:.92rem;font-weight:300}
+.foot-col a:hover{opacity:1;color:var(--champ-l)}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:20px;text-align:center;font-size:.83rem;opacity:.6;font-weight:300}
+
+/* FLOATS */
+.floats{position:fixed;right:20px;bottom:20px;z-index:800;display:flex;flex-direction:column;gap:12px}
+.floats a{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.25);position:relative}
+.floats svg{width:28px;height:28px;fill:#fff}
+.f-wa{background:var(--wa);color:var(--wa)}
+.f-call{background:var(--gold);color:var(--gold)}
+.f-call::before,.f-wa::before{content:"";position:absolute;inset:0;border-radius:50%;border:3px solid currentColor;animation:ring 2.2s ease-out infinite}
+@keyframes ring{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.6);opacity:0}}
+
+/* LIGHTBOX */
+.lightbox{position:fixed;inset:0;z-index:1000;background:rgba(14,7,9,.93);display:none;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+.lightbox.open{display:flex}
+.lightbox img{max-width:92%;max-height:88%;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.lb-close{position:absolute;top:16px;right:22px;background:none;border:0;color:#fff;font-size:2.4rem;line-height:1;cursor:pointer}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
+.reveal.in{opacity:1;transform:none}
+
+@media(max-width:860px){
+  .nav-links{display:none}
+  .burger{display:flex}
+  .nav{gap:6px}
+  .quicknav{display:flex;gap:12px;align-items:center;flex:1;justify-content:center}
+  .quicknav a{color:var(--ink);font-weight:500;font-size:.76rem;white-space:nowrap}
+  .logo-emblem{width:40px;height:40px;font-size:1rem}
+  .logo-text{font-size:1rem}
+  .logo-text small{display:none}
+  .svc-grid{gap:12px}
+  .svc{flex:1 1 calc(50% - 6px);max-width:none}
+  .nos-grid{grid-template-columns:1fr;gap:32px}
+  .nos-img{aspect-ratio:4/3;max-height:380px}
+  .team-grid{grid-template-columns:1fr 1fr;gap:14px}
+  .stat-grid{grid-template-columns:1fr 1fr;gap:26px 16px}
+  .ubica-grid{grid-template-columns:1fr}
+  .ag-grid{grid-template-columns:1fr;gap:30px}
+  .foot-grid{grid-template-columns:1fr;gap:28px}
+  .sec{padding:60px 0}
+  .hero{min-height:auto}
+  .hero-bg::after{background:linear-gradient(180deg,rgba(18,8,11,.78),rgba(25,12,16,.9))}
+  .hero-inner{padding:58px 0}
+  .rev{width:290px}
+  .floats a{width:52px;height:52px}
+  .promobar .wrap{font-size:.76rem;gap:8px;padding:7px 10px;flex-wrap:nowrap}
+  .pb-extra{display:none}
+  .slots{grid-template-columns:repeat(3,1fr)}
+  .trend{flex-basis:100%;max-width:440px;padding:0}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.001s !important;transition-duration:.001s !important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="logo on-dark sp-logo">
+    <span class="logo-emblem">MM</span>
+    <span class="logo-text">María Magdalena<small>Peluquería · Estética</small></span>
+  </div>
+  <div class="sp-bar"><i></i></div>
+</div>
+
+<!-- PROMO BAR -->
+<div class="promobar">
+  <div class="wrap">
+    <span class="spark">🎁</span>
+    <span class="pb-text"><b>20% OFF en tu primera visita</b><span class="pb-extra"> — solo si asistes; si faltas, se pierde</span></span>
+    <a href="#reservar" class="pb-cta">Reservar</a>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header id="header">
+  <div class="wrap nav">
+    <a href="#inicio" class="logo" aria-label="Peluquería María Magdalena">
+      <span class="logo-emblem">MM</span>
+      <span class="logo-text">María Magdalena<small>Peluquería · Estética</small></span>
+    </a>
+    <nav class="quicknav">
+      <a href="#tendencias">Tendencias</a>
+      <a href="#resenas">Reseñas</a>
+      <a href="#ubicacion">Ubicación</a>
+    </nav>
+    <nav class="nav-links">
+      <a href="#servicios">Servicios</a>
+      <a href="#tendencias">Tendencias</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#resenas">Reseñas</a>
+      <a href="#ubicacion">Ubicación</a>
+      <a href="#reservar" class="nav-cta">Reservar</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menú"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- DRAWER -->
+<div class="drawer" id="drawer">
+  <div class="drawer-bg" data-close></div>
+  <div class="drawer-panel">
+    <button class="drawer-close" data-close>&times;</button>
+    <a href="#servicios" data-close>Servicios</a>
+    <a href="#tendencias" data-close>Tendencias</a>
+    <a href="#nosotros" data-close>Nosotros</a>
+    <a href="#resenas" data-close>Reseñas</a>
+    <a href="#ubicacion" data-close>Ubicación</a>
+    <a href="#reservar" class="d-cta" data-close>Reservar cita</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-bg"><img src="assets/hero.jpg" alt="Interior de Peluquería María Magdalena" fetchpriority="high" decoding="async" onerror="this.style.display='none'"/></div>
+  <div class="wrap hero-inner">
+    <span class="kicker">Peluquería · Estética · La Florida, Quito</span>
+    <h1>Años de trayectoria,<br>tu estilo en <span class="accent">buenas manos</span></h1>
+    <p class="lead">Cabello, color, uñas y estética con el buen trato y el asesoramiento de siempre. Productos de calidad y resultados que te hacen volver, en pleno barrio de La Florida.</p>
+    <div class="hero-ctas">
+      <a href="#reservar" class="btn btn-gold">
+        <svg viewBox="0 0 24 24" fill="#fff"><path d="M19 4h-1V3a1 1 0 0 0-2 0v1H8V3a1 1 0 0 0-2 0v1H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 15H5V9h14v10z"/></svg>
+        Reservar cita
+      </a>
+      <a href="https://wa.me/593984049636?text=Hola%20Peluquer%C3%ADa%20Mar%C3%ADa%20Magdalena,%20quiero%20reservar%20una%20cita" target="_blank" rel="noopener" class="btn btn-wa">
+        <svg viewBox="0 0 24 24" fill="#fff"><path d="M17.5 14.4c-.3-.2-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.5-.8-2.5-1.4-3.5-3.1-.3-.5.3-.4.8-1.4.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 2 .8 2.7.9 3.7.8.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+    <div class="hero-pills">
+      <div class="pill"><span class="star">★</span> <b>4.6</b> · 37 reseñas en Google</div>
+      <div class="pill"><b>Cabello</b> · Uñas · Estética</div>
+      <div class="pill"><b>La Florida</b> · Quito</div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<section class="trust">
+  <div class="wrap">
+    <a class="trust-item trust-g" href="https://www.google.com/maps/place/PELUQUERIA+MARIA+MAGDALENA,+Av+La+Florida+OE4-84,+170104+Quito" target="_blank" rel="noopener">
+      <span class="glogo"><span class="b">G</span><span class="r">o</span><span class="y">o</span><span class="b">g</span><span class="g">l</span><span class="r">e</span></span>
+      <b>4.6</b><span class="stars">★★★★★</span><span style="color:var(--gold-d);font-weight:500">Ver en Google</span>
+    </a>
+    <div class="trust-sep"></div>
+    <div class="trust-item"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-5 0-9 2.5-9 6v2h18v-2c0-3.5-4-6-9-6z"/></svg> Trato cercano y asesoramiento</div>
+    <div class="trust-sep"></div>
+    <div class="trust-item"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7.4L12 16.9 5.7 21.4 8 14 2 9.4h7.6z"/></svg> Productos de calidad</div>
+    <div class="trust-sep"></div>
+    <div class="trust-item"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg> Av. La Florida, Quito</div>
+  </div>
+</section>
+
+<!-- PROMESA -->
+<section class="promesa">
+  <div class="wrap">
+    <span class="promesa-t">Sin apuro, a tu ritmo</span>
+    <div class="promesa-items">
+      <span>Una persona a la vez</span>
+      <span>Con quien reservaste</span>
+      <span>A tu hora, tolerancia 15 min</span>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section class="sec servicios" id="servicios">
+  <div class="wrap">
+    <div class="center reveal" style="max-width:600px">
+      <div class="eyebrow">Lo que hacemos</div>
+      <h2 class="sec-title">Nuestros servicios</h2>
+      <p class="sec-sub center">Cabello, color, uñas y estética — para él y para ella, en un solo lugar y con años de oficio.</p>
+    </div>
+    <div class="svc-grid">
+      <article class="svc reveal"><div class="svc-img"><img src="assets/svc-corte.jpg" alt="Corte y estilo" loading="lazy" decoding="async" onerror="this.src='assets/hero.jpg'"/></div><div class="svc-cap"><h3>Corte & Estilo</h3><p>Para él y para ella.</p><span class="svc-price">Desde $5 · 30 min</span> <a class="svc-book" href="#reservar" data-svc="Corte & Estilo">Reservar →</a></div></article>
+      <article class="svc reveal"><div class="svc-img"><img src="assets/svc-color.jpg" alt="Color y tintes" loading="lazy" decoding="async" onerror="this.src='assets/hero.jpg'"/></div><div class="svc-cap"><h3>Color & Tintes</h3><p>Tinte, mechas, balayage y matices.</p><span class="svc-price">Desde $25 · diagnóstico gratis</span> <a class="svc-book" href="#reservar" data-svc="Color & Tintes">Reservar →</a></div></article>
+      <article class="svc reveal"><div class="svc-img"><img src="assets/svc-keratina.jpg" alt="Alisado y keratina" loading="lazy" decoding="async" onerror="this.src='assets/hero.jpg'"/></div><div class="svc-cap"><h3>Alisado & Keratina</h3><p>Cabello sano, liso y con brillo.</p><span class="svc-price">Desde $35 · diagnóstico gratis</span> <a class="svc-book" href="#reservar" data-svc="Alisado & Keratina">Reservar →</a></div></article>
+      <article class="svc reveal"><div class="svc-img"><img src="assets/svc-manicure.jpg" alt="Manicure y pedicure" loading="lazy" decoding="async" onerror="this.src='assets/svc-color.jpg'"/></div><div class="svc-cap"><h3>Manicure & Pedicure</h3><p>Uñas impecables, manos y pies.</p><span class="svc-price">Desde $8 · 45 min</span> <a class="svc-book" href="#reservar" data-svc="Manicure & Pedicure">Reservar →</a></div></article>
+      <article class="svc reveal"><div class="svc-img"><img src="assets/svc-estetica.jpg" alt="Estética y belleza" loading="lazy" decoding="async" onerror="this.src='assets/svc-corte.jpg'"/></div><div class="svc-cap"><h3>Estética & Belleza</h3><p>Cejas, pestañas, facial y maquillaje.</p><span class="svc-price">Desde $6</span> <a class="svc-book" href="#reservar" data-svc="Estética & Belleza">Reservar →</a></div></article>
+    </div>
+    <p class="svc-more reveal">Precios referenciales — confírmalos al reservar. <a href="#reservar" style="color:var(--gold);font-weight:500">Consúltanos →</a></p>
+  </div>
+</section>
+
+<!-- TENDENCIAS -->
+<section class="sec tendencias" id="tendencias">
+  <div class="wrap">
+    <div class="center reveal" style="max-width:600px">
+      <div class="eyebrow">Lo que se usa ahora</div>
+      <h2 class="sec-title">Tendencias 2026</h2>
+      <p class="sec-sub center">Los looks que más nos piden. Elige el tuyo y te lo logramos.</p>
+    </div>
+    <div class="tabs reveal">
+      <button class="tab-btn active" data-tab="ella">Para ella</button>
+      <button class="tab-btn" data-tab="el">Para él</button>
+    </div>
+    <div class="trend-pane active" id="pane-ella"></div>
+    <div class="trend-pane" id="pane-el"></div>
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section class="sec nosotros" id="nosotros">
+  <div class="wrap nos-grid">
+    <div class="nos-img reveal">
+      <img src="assets/team-owner.jpg" alt="Fundadora de Peluquería María Magdalena" loading="lazy" decoding="async" onerror="this.src='assets/hero.jpg'"/>
+      <div class="nos-badge"><div class="n">4.6</div><small>★ · 37 reseñas<br>en Google</small></div>
+    </div>
+    <div class="reveal">
+      <div class="eyebrow">Por qué María Magdalena</div>
+      <h2 class="sec-title">Trayectoria que se nota</h2>
+      <p class="sec-sub" style="margin-bottom:28px">Somos una peluquería de barrio con años atendiendo a La Florida. Aquí no te apuran: te escuchamos, te asesoramos según tu rostro y tu cabello, y trabajamos con productos de calidad para que salgas feliz con el resultado.</p>
+      <div class="nos-point">
+        <div class="nos-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10V6h-2v7l5 3 1-1.7-4-2.3z"/></svg></div>
+        <div><h3>Años de experiencia</h3><p>La trayectoria se siente en cada corte, color y tratamiento.</p></div>
+      </div>
+      <div class="nos-point">
+        <div class="nos-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M12 21s-7-4.5-9.5-9C.8 8.6 2.4 5 6 5c2 0 3.3 1.2 4 2.3C10.7 6.2 12 5 14 5c3.6 0 5.2 3.6 3.5 7-2.5 4.5-9.5 9-5.5 9z"/></svg></div>
+        <div><h3>Trato cercano y asesoramiento</h3><p>Te recomendamos lo mejor para ti, con la confianza de siempre.</p></div>
+      </div>
+      <div class="nos-point">
+        <div class="nos-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7.4L12 16.9 5.7 21.4 8 14 2 9.4h7.6z"/></svg></div>
+        <div><h3>Productos de calidad</h3><p>Trabajamos con marcas profesionales que cuidan tu cabello y tu piel.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EQUIPO -->
+<section class="sec equipo" id="equipo">
+  <div class="wrap">
+    <div class="center reveal" style="max-width:620px">
+      <div class="eyebrow">Conoce a quién te atenderá</div>
+      <h2 class="sec-title">Nuestro equipo</h2>
+      <p class="sec-sub center">Manos con oficio, apasionadas por lo que hacen y listas para darte el look que buscas.</p>
+    </div>
+    <div class="team-grid">
+      <article class="team reveal"><div class="team-img"><img src="assets/team-owner.jpg" alt="Fundadora" loading="lazy" decoding="async" onerror="this.src='assets/hero.jpg'"/></div><div class="team-body"><h3>María</h3><div class="team-role">Estilista & Fundadora</div><span class="team-tag">Color & corte</span></div></article>
+      <article class="team reveal"><div class="team-img"><img src="assets/team-2.jpg" alt="Estilista" loading="lazy" decoding="async" onerror="this.src='assets/hero.jpg'"/></div><div class="team-body"><h3>Nuestro equipo</h3><div class="team-role">Estilista & Manicurista</div><span class="team-tag">Uñas & estética</span></div></article>
+    </div>
+    <p class="team-note reveal">Fotos de referencia para la demo; se reemplazan por las del equipo real.</p>
+  </div>
+</section>
+
+<!-- STATS BAND -->
+<section class="stats">
+  <div class="wrap stat-grid">
+    <div class="stat reveal"><div class="num">4.6 ★</div><div class="lbl">37 reseñas en Google</div></div>
+    <div class="stat reveal"><div class="num">Trayectoria</div><div class="lbl">Años atendiendo el barrio</div></div>
+    <div class="stat reveal"><div class="num">Todo en uno</div><div class="lbl">Cabello · Uñas · Estética</div></div>
+    <div class="stat reveal"><div class="num">Con cita</div><div class="lbl">Sin esperas, a tu hora</div></div>
+  </div>
+</section>
+
+<!-- RESEÑAS -->
+<section class="sec reviews" id="resenas">
+  <div class="wrap center reveal" style="max-width:600px">
+    <div class="eyebrow">Lo que dicen</div>
+    <h2 class="sec-title">Nuestros clientes</h2>
+    <div class="rev-badge"><span class="big">4.6</span><span class="stars">★★★★★</span> <span style="color:var(--ink-soft);font-size:.9rem">· 37 reseñas en Google</span></div>
+  </div>
+  <div class="marquee"><div class="marquee-track" id="track"></div></div>
+  <p class="demo-tag">Incluye reseñas reales de Google y algunas de muestra; las de muestra se reemplazan por las reales.</p>
+  <div style="text-align:center"><a class="rev-cta" href="https://www.google.com/maps/place/PELUQUERIA+MARIA+MAGDALENA,+Av+La+Florida+OE4-84,+170104+Quito" target="_blank" rel="noopener">⭐ ¿Ya nos visitaste? Déjanos tu reseña en Google</a></div>
+</section>
+
+<!-- UBICACION -->
+<section class="sec ubica" id="ubicacion">
+  <div class="wrap">
+    <div class="center reveal" style="max-width:600px">
+      <div class="eyebrow">Dónde estamos</div>
+      <h2 class="sec-title">Visítanos en La Florida</h2>
+      <p class="sec-sub center">Fácil de llegar, en la Av. La Florida. Te esperamos.</p>
+    </div>
+    <div class="ubica-grid">
+      <div class="ubica-map reveal">
+        <iframe loading="lazy" src="https://www.google.com/maps?q=PELUQUERIA+MARIA+MAGDALENA,+Av+La+Florida+OE4-84,+Quito&z=17&output=embed" title="Ubicación Peluquería María Magdalena"></iframe>
+      </div>
+      <div class="ubica-card reveal">
+        <div class="ubica-row"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><span><b>Dirección</b>Av. La Florida OE4-84 · Quito</span></div>
+        <div class="ubica-row"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.3 1l-2.2 2.2z"/></svg><span><b>Teléfono / WhatsApp</b>098 404 9636</span></div>
+        <div class="ubica-row"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10V6h-2v7l5 3 1-1.7-4-2.3z"/></svg><span><b>Horario</b>Lun a Sáb · hasta las 19:00 · Dom cerrado <small style="color:#b2a7a2">(confírmalo por WhatsApp)</small></span></div>
+        <div class="ubica-btns">
+          <a class="btn btn-gold" style="flex:1;justify-content:center;font-size:.9rem;padding:12px 16px" href="https://www.google.com/maps/place/PELUQUERIA+MARIA+MAGDALENA,+Av+La+Florida+OE4-84,+170104+Quito" target="_blank" rel="noopener">Cómo llegar</a>
+          <a class="btn btn-wa" style="flex:1;justify-content:center;font-size:.9rem;padding:12px 16px" href="https://wa.me/593984049636?text=Hola%20Peluquer%C3%ADa%20Mar%C3%ADa%20Magdalena,%20quiero%20reservar%20una%20cita" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVAR -->
+<section class="sec reservar" id="reservar">
+  <div class="wrap ag-grid">
+    <div class="ag-intro reveal">
+      <h2>Reserva tu cita</h2>
+      <p>Déjanos tus datos y te confirmamos por WhatsApp en minutos. Rápido, sin complicaciones.</p>
+      <div class="promo-box">
+        <span class="promo-badge">-20%</span>
+        <div><b>Promo primera visita</b><p>20% de descuento en tu primer servicio, <span class="warn">válido solo si asistes</span> a la cita que reserves. Si faltas, se pierde.</p></div>
+      </div>
+      <ul class="ag-list">
+        <li><span class="tick">✓</span> Respuesta rápida por WhatsApp</li>
+        <li><span class="tick">✓</span> Elige el día que más te convenga</li>
+        <li><span class="tick">✓</span> Atención personalizada, sin esperas</li>
+      </ul>
+      <a href="https://wa.me/593984049636?text=Hola%20Peluquer%C3%ADa%20Mar%C3%ADa%20Magdalena,%20quiero%20reservar%20una%20cita" target="_blank" rel="noopener" class="btn btn-wa" style="margin-top:24px">
+        <svg viewBox="0 0 24 24" fill="#fff"><path d="M17.5 14.4c-.3-.2-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.5-.8-2.5-1.4-3.5-3.1-.3-.5.3-.4.8-1.4.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 2 .8 2.7.9 3.7.8.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2z"/></svg>
+        Escribir directo al WhatsApp
+      </a>
+    </div>
+    <div class="reveal">
+      <form class="card" id="citaForm">
+        <div class="field"><label>Tu nombre</label><input type="text" id="fNombre" required placeholder="Ej. María López"/></div>
+        <div class="field"><label>Servicio</label>
+          <select id="fServicio"><option>Corte & Estilo</option><option>Color & Tintes</option><option>Alisado & Keratina</option><option>Manicure & Pedicure</option><option>Estética & Belleza</option><option>Peinado / Evento</option><option>Otro</option></select>
+        </div>
+        <div class="field"><label>Fecha preferida</label><input type="date" id="citaFecha"/></div>
+        <div class="field">
+          <label>Hora disponible</label>
+          <div class="slots" id="slots"><p class="slots-msg">Elige primero una fecha 👆</p></div>
+          <div class="slots-legend"><span><i class="dot free"></i> Disponible</span><span><i class="dot busy"></i> Ocupado</span></div>
+          <input type="hidden" id="fHora"/>
+        </div>
+        <button type="submit" class="submit">
+          <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.2-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.5-.8-2.5-1.4-3.5-3.1-.3-.5.3-.4.8-1.4.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 2 .8 2.7.9 3.7.8.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2z"/></svg>
+          Reservar por WhatsApp
+        </button>
+        <p class="demo-note">Te abrimos WhatsApp con tus datos listos para enviar.</p>
+      </form>
+      <div class="form-ok" id="formOk">
+        <div class="big">✓</div>
+        <h3>¡Te abrimos WhatsApp!</h3>
+        <p>Revisa la conversación con tus datos listos y envíalos. Si no se abrió, escríbenos directo al <a href="https://wa.me/593984049636" target="_blank" rel="noopener" style="color:var(--gold);font-weight:600">098 404 9636</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <div class="logo on-dark" style="margin-bottom:14px">
+          <span class="logo-emblem">MM</span>
+          <span class="logo-text">María Magdalena<small>Peluquería · Estética</small></span>
+        </div>
+        <p>Peluquería y estética de barrio en La Florida, con años de trayectoria. Cabello, uñas y belleza con el trato de siempre.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Contacto</h4>
+        <a href="tel:+593984049636">📞 098 404 9636</a>
+        <a href="https://wa.me/593984049636" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://www.google.com/maps/place/PELUQUERIA+MARIA+MAGDALENA,+Av+La+Florida+OE4-84,+170104+Quito" target="_blank" rel="noopener">Ver en Google</a>
+        <div>Av. La Florida OE4-84</div>
+        <div>Quito, Ecuador</div>
+      </div>
+      <div class="foot-col">
+        <h4>Horario</h4>
+        <div>Lun a Sáb · hasta 19:00</div>
+        <div>Domingo · cerrado</div>
+        <div style="opacity:.6">Confírmalo por WhatsApp</div>
+      </div>
+    </div>
+    <div class="foot-bottom">© 2026 Peluquería María Magdalena · La Florida, Quito, Ecuador</div>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox"><button class="lb-close" aria-label="Cerrar">&times;</button><img id="lb-img" src="" alt="Ampliada"></div>
+
+<!-- FLOATS -->
+<div class="floats">
+  <a class="f-call" href="tel:+593984049636" aria-label="Llamar">
+    <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.3 1l-2.2 2.2z"/></svg>
+  </a>
+  <a class="f-wa" href="https://wa.me/593984049636?text=Hola%20Peluquer%C3%ADa%20Mar%C3%ADa%20Magdalena,%20quiero%20reservar%20una%20cita" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.2-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.5-.8-2.5-1.4-3.5-3.1-.3-.5.3-.4.8-1.4.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 2 .8 2.7.9 3.7.8.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2z"/></svg>
+  </a>
+</div>
+
+<script>
+// Splash
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('splash').classList.add('hide'),1600));
+
+// Drawer
+const drawer=document.getElementById('drawer');
+document.getElementById('burger').addEventListener('click',()=>drawer.classList.add('open'));
+drawer.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',()=>drawer.classList.remove('open')));
+
+// Reveal
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.14});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+setTimeout(()=>document.querySelectorAll('.reveal:not(.in)').forEach(el=>{const r=el.getBoundingClientRect();if(r.top<innerHeight)el.classList.add('in');}),1800);
+
+// Reserva: fecha + horas disponibles
+const citaFecha=document.getElementById('citaFecha');
+const slotsEl=document.getElementById('slots');
+const fHora=document.getElementById('fHora');
+
+// Fecha: solo hoy en adelante (hasta 3 meses)
+(function(){const h=new Date();const tz=h.getTimezoneOffset()*60000;const iso=d=>new Date(d-tz).toISOString().slice(0,10);citaFecha.min=iso(h);const m=new Date(h);m.setMonth(m.getMonth()+3);citaFecha.max=iso(m);})();
+
+// Horario por día (0=Dom … 6=Sáb) — AJUSTAR con el horario real del salón
+function hoursFor(dow){
+  if(dow===0) return [];                                   // Domingo: cerrado
+  return ['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00']; // Lun a Sáb, hasta las 19:00
+}
+// Horas ya reservadas (simuladas y estables por fecha para la demo).
+// Al conectar la base de datos, estas se bloquean en tiempo real cuando alguien reserva.
+function takenFor(dateStr,list){
+  let seed=0; for(const c of dateStr) seed=(seed*31+c.charCodeAt(0))>>>0;
+  const taken=new Set();
+  list.forEach((t,i)=>{ if((i+ (seed%7))%3===0 && ((seed>>i)&1)) taken.add(t); });
+  return taken;
+}
+function renderSlots(){
+  fHora.value='';
+  const val=citaFecha.value;
+  if(!val){ slotsEl.innerHTML='<p class="slots-msg">Elige primero una fecha 👆</p>'; return; }
+  const dow=new Date(val+'T12:00:00').getDay();
+  const list=hoursFor(dow);
+  if(list.length===0){ slotsEl.innerHTML='<p class="slots-msg">Ese día estamos cerrados 🙁 Elige otro día (Lun a Sáb).</p>'; return; }
+  const taken=takenFor(val,list);
+  slotsEl.innerHTML=list.map(t=> taken.has(t)
+    ? `<button type="button" class="slot taken" disabled>${t}</button>`
+    : `<button type="button" class="slot" data-t="${t}">${t}</button>`).join('');
+  slotsEl.querySelectorAll('.slot:not(.taken)').forEach(b=>b.addEventListener('click',()=>{
+    slotsEl.querySelectorAll('.slot').forEach(x=>x.classList.remove('sel'));
+    b.classList.add('sel'); fHora.value=b.dataset.t;
+  }));
+}
+citaFecha.addEventListener('change',renderSlots);
+
+// Preseleccionar el servicio al tocar "Reservar" en una tarjeta
+document.querySelectorAll('.svc-book').forEach(b=>b.addEventListener('click',()=>{
+  const s=b.dataset.svc, sel=document.getElementById('fServicio');
+  if(s&&sel){ [...sel.options].forEach(o=>{ if(o.value===s||o.text===s){ sel.value=o.value; } }); }
+}));
+
+// Form -> cierra por WhatsApp con los datos listos
+document.getElementById('citaForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  if(!citaFecha.value){ citaFecha.focus(); return; }
+  if(!fHora.value){ alert('Elige una hora disponible 🕒'); return; }
+  const v=id=>{const el=document.getElementById(id);return el&&el.value?el.value:'—';};
+  const txt='Hola Peluquería María Magdalena, quiero reservar una cita.\n\n'+
+    'Nombre: '+v('fNombre')+'\n'+
+    'Servicio: '+v('fServicio')+'\n'+
+    'Fecha: '+citaFecha.value+'\n'+
+    'Hora: '+fHora.value+'\n\n'+
+    'Quiero la promo de primera visita (-20%). Sé que es válida solo si asisto a esta cita.';
+  window.open('https://wa.me/593984049636?text='+encodeURIComponent(txt),'_blank');
+  document.getElementById('citaForm').style.display='none';
+  document.getElementById('formOk').classList.add('show');
+});
+
+// RESEÑAS (2 reales de Google + muestra honesta)
+const reviews=[
+  {n:"Rebeca Díaz Guzmán",d:"Google · Local Guide",t:"Muy buena atención. Trabajan con responsabilidad y con buen gusto, dan asesoramiento para tener a las clientes satisfechas.",img:"",real:true},
+  {n:"Pilar Analuisa",d:"Google · Local Guide",t:"La atención muy buena, con productos de calidad.",img:"",real:true},
+  {n:"Gabriela Andrade",d:"Hace 2 semanas",t:"Me encantó mi color, quedó justo como quería. El trato es cálido y se nota la experiencia.",img:"assets/work-1.jpg"},
+  {n:"María José Pérez",d:"Hace 1 mes",t:"Por fin una peluquería de confianza cerca de casa. Mi keratina quedó espectacular.",img:"assets/work-3.jpg"},
+  {n:"Daniela Cuzco",d:"Hace 3 semanas",t:"Atención personalizada de verdad. Me asesoraron con el color y amé el resultado.",img:""},
+  {n:"Andrés Vinueza",d:"Hace 1 mes",t:"Buen corte y sin apuro. Me explicaron todo y salí regio. Recomendado.",img:""}
+];
+const colors=["#8a2e43","#a9823a","#3a2a2e","#8a6d3b","#6b5d5f","#b08948"];
+function card(r,i){
+  const av=r.img?`<img class="rev-av" src="${r.img}" alt="${r.n}" loading="lazy" decoding="async" onerror="this.outerHTML='<div class=\\'rev-av letter\\' style=\\'background:${colors[i%colors.length]}\\'>${r.n[0]}</div>'">`
+                 :`<div class="rev-av letter" style="background:${colors[i%colors.length]}">${r.n[0]}</div>`;
+  const foot=r.real
+    ?`<span class="gverif"><span class="gcheck">✓</span> Reseña real de Google</span>`
+    :`<span class="gverif"><span class="gcheck">✓</span> Reseña de muestra</span>`;
+  return `<div class="rev">
+    <div class="rev-top">${av}<div><div class="rev-name">${r.n}</div><div class="rev-date">${r.d}</div></div></div>
+    <div class="stars">★★★★★</div>
+    <div class="rev-text">${r.t}</div>
+    <div class="rev-foot">${foot}<span class="glogo"><span class="b">G</span><span class="r">o</span><span class="y">o</span><span class="b">g</span><span class="g">l</span><span class="r">e</span></span></div>
+  </div>`;
+}
+const hh=reviews.map(card).join('');
+document.getElementById('track').innerHTML=hh+hh;
+
+// Carrusel: auto-avance por JS + deslizable con el dedo
+(function(){
+  const m=document.querySelector('.marquee');
+  if(!m) return;
+  let paused=false, resumeT;
+  const pause=()=>{paused=true; clearTimeout(resumeT);};
+  const resumeSoon=()=>{clearTimeout(resumeT); resumeT=setTimeout(()=>{paused=false;},2500);};
+  m.addEventListener('pointerdown',pause);
+  m.addEventListener('pointerup',resumeSoon);
+  m.addEventListener('touchstart',pause,{passive:true});
+  m.addEventListener('touchend',resumeSoon,{passive:true});
+  m.addEventListener('mouseenter',pause);
+  m.addEventListener('mouseleave',()=>{paused=false;});
+  function tick(){
+    if(!paused && m.scrollWidth>m.clientWidth+4){
+      m.scrollLeft+=0.5;
+      if(m.scrollLeft>=m.scrollWidth/2){ m.scrollLeft-=m.scrollWidth/2; }
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+
+// TENDENCIAS (pestañas él/ella)
+const trends={
+  ella:[
+    {n:"Balayage",img:"trend-balayage",d:"Qué es: mechas pintadas a mano para un degradado natural, sin raíz marcada."},
+    {n:"Money piece",img:"trend-moneypiece",d:"Qué es: dos mechas más claras al frente que iluminan y enmarcan la cara."},
+    {n:"Ondas & rizos",img:"trend-ondas",d:"Qué es: ondas marcadas con brillo, tipo 'beach waves', con mucho cuerpo."},
+    {n:"Color vino & cobre",img:"trend-color",d:"Qué es: tonos rojizos de moda (vino, cobre) que dan carácter al cabello."},
+    {n:"Corte en capas",img:"trend-capas",d:"Qué es: capas a distinto largo para dar volumen y movimiento."}
+  ],
+  el:[
+    {n:"Degradado / Fade",img:"trend-fade",d:"Qué es: lados rapados que suben en degradado hasta el largo de arriba."},
+    {n:"Mullet moderno",img:"trend-mullet",d:"Qué es: corto adelante y a los lados, más largo atrás. Con actitud."},
+    {n:"Corte texturizado",img:"trend-texturizado",d:"Qué es: textura desordenada arriba (crop) para dar volumen natural."},
+    {n:"Corte cortina",img:"trend-cortina",d:"Qué es: flequillo partido al medio que cae a los lados."},
+    {n:"Barba perfilada",img:"trend-barba",d:"Qué es: barba delineada y contorneada con líneas limpias."}
+  ]
+};
+function trendCard(t,i){return `<div class="trend">
+  <div class="trend-img" data-lb="assets/${t.img}.jpg"><img src="assets/${t.img}.jpg" alt="${t.n}" loading="lazy" decoding="async" onerror="this.src='assets/work-1.jpg'"><span class="tnum">0${i+1}</span></div>
+  <div class="trend-body"><h3>${t.n}</h3><p>${t.d}</p><span class="ttag">Tendencia 2026</span></div>
+</div>`;}
+document.getElementById('pane-ella').innerHTML=trends.ella.map(trendCard).join('');
+document.getElementById('pane-el').innerHTML=trends.el.map(trendCard).join('');
+document.querySelectorAll('.tab-btn[data-tab]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.tab-btn[data-tab]').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  const t=b.dataset.tab;
+  document.getElementById('pane-ella').classList.toggle('active',t==='ella');
+  document.getElementById('pane-el').classList.toggle('active',t==='el');
+  const pane=document.getElementById(t==='ella'?'pane-ella':'pane-el');
+  pane.querySelectorAll('img').forEach(i=>{i.loading='eager';});
+}));
+(window.requestIdleCallback||setTimeout)(()=>{document.querySelectorAll('#pane-el img').forEach(i=>{i.loading='eager';const s=i.getAttribute('src');if(s){const p=new Image();p.src=s;}});},1);
+
+// Lightbox: ampliar fotos de tendencias
+(function(){
+  const lb=document.getElementById('lightbox'), lbimg=document.getElementById('lb-img');
+  const close=()=>{lb.classList.remove('open');lbimg.src='';};
+  lb.addEventListener('click',close);
+  document.querySelector('.lb-close').addEventListener('click',e=>{e.stopPropagation();close();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
+  document.addEventListener('click',e=>{
+    const t=e.target.closest('[data-lb]');
+    if(t){ lbimg.src=t.getAttribute('data-lb'); lb.classList.add('open'); }
+  });
+})();
+</script>
+</body>
+</html>

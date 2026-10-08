@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="15" fill="#2a1016"/>
+  <text x="32" y="30" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-weight="700" font-size="24" fill="#c99a52" letter-spacing="-1">MM</text>
+  <g fill="none" stroke="#c99a52" stroke-width="2.6" stroke-linecap="round">
+    <line x1="18" y1="44" x2="46" y2="44"/>
+    <circle cx="18" cy="44" r="2.4" fill="#c99a52" stroke="none"/>
+    <circle cx="46" cy="44" r="2.4" fill="#c99a52" stroke="none"/>
+  </g>
+</svg>
